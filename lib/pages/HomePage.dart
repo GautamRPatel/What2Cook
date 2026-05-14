@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:what2cook/models/Recipe.dart';
@@ -37,14 +39,23 @@ class _HomepageState extends State<Homepage> {
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 242, 244, 230),
         scrolledUnderElevation: 0,
-        title: Text(
-          "What2Cook",
-          style: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.w500,
-            fontFamily: 'Poppins',
-            color: primaryTextColor,
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "What2Cook",
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Poppins',
+                color: primaryTextColor,
+              ),
+            ),
+            InkWell(
+              onTap: FirebaseAuth.instance.signOut,
+              child: Text('Logout',style: TextStyle(decoration: TextDecoration.underline),),
+            )
+          ],
         ),
         centerTitle: false,
       ),

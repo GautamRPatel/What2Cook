@@ -44,3 +44,28 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Firebase
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+firebase-adminsdk*.json
+serviceAccountKey.json
+
+# Environment files
+.env
+.env.*
+
+# Android signing keys
+*.jks
+*.keystore
+key.properties
+
+# macOS
+*.lock
+*.tmp
+
+# Coverage
+coverage/
+
+# Generated files
+.generated/

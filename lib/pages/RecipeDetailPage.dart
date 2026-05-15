@@ -21,17 +21,15 @@ class RecipeDetailPage extends StatelessWidget {
       body: Stack(
         children: [
 
-          /// 🔥 TOP IMAGE
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.42,
             width: double.infinity,
             child: Image.asset(
-              "assets/images/ChatGPT Image Feb 28, 2026, 03_49_00 PM.png", // <-- You set manually
+              "assets/images/ChatGPT Image Feb 28, 2026, 03_49_00 PM.png",
               fit: BoxFit.cover,
             ),
           ),
 
-          /// 🔙 Back Button
           Positioned(
             top: 45,
             left: 20,
@@ -44,7 +42,6 @@ class RecipeDetailPage extends StatelessWidget {
             ),
           ),
 
-          /// 📄 CONTENT CARD
           DraggableScrollableSheet(
             initialChildSize: 0.62,
             minChildSize: 0.62,
@@ -64,7 +61,6 @@ class RecipeDetailPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
 
-                      /// 🏷 TITLE
                       Text(
                         recipe.name ?? "",
                         style: const TextStyle(
@@ -76,7 +72,6 @@ class RecipeDetailPage extends StatelessWidget {
 
                       const SizedBox(height: 14),
 
-                      /// TAGS
                       Row(
                         children: [
                           _tag("VEGAN"),
@@ -89,7 +84,6 @@ class RecipeDetailPage extends StatelessWidget {
 
                       const SizedBox(height: 22),
 
-                      /// DESCRIPTION
                       const Text(
                         "Description",
                         style: TextStyle(
@@ -109,7 +103,6 @@ class RecipeDetailPage extends StatelessWidget {
 
                       const SizedBox(height: 24),
 
-                      /// INGREDIENTS
                       const Text(
                         "Ingredients",
                         style: TextStyle(
@@ -127,7 +120,7 @@ class RecipeDetailPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
 
-                              /// Green Bullet
+
                               Container(
                                 margin: const EdgeInsets.only(top: 6, right: 10),
                                 height: 8,
@@ -138,7 +131,7 @@ class RecipeDetailPage extends StatelessWidget {
                                 ),
                               ),
 
-                              /// Ingredient Text
+
                               Expanded(
                                 child: Text(
                                   item.trim(),
@@ -156,7 +149,7 @@ class RecipeDetailPage extends StatelessWidget {
 
                       const SizedBox(height: 24),
 
-                      /// COOKING TIME
+
                       const Text(
                         "Cooking Time",
                         style: TextStyle(
@@ -188,7 +181,6 @@ class RecipeDetailPage extends StatelessWidget {
     );
   }
 
-  /// 🌿 TAG CHIP
   Widget _tag(String text) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
@@ -207,7 +199,6 @@ class RecipeDetailPage extends StatelessWidget {
     );
   }
 
-  /// ⏱ TIME CARD
   Widget _timeCard(String label, int time) {
     return Container(
       width: 90,

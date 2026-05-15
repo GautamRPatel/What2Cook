@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:what2cook/models/Recipe.dart';
 import 'package:what2cook/pages/RecipeDetailPage.dart';
 import 'dart:io';
@@ -34,7 +32,7 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
+    // double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 242, 244, 230),
@@ -42,6 +40,7 @@ class _HomepageState extends State<Homepage> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+
             Text(
               "What2Cook",
               style: TextStyle(
@@ -52,9 +51,15 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
             InkWell(
-              onTap: FirebaseAuth.instance.signOut,
-              child: Text('Logout',style: TextStyle(decoration: TextDecoration.underline),),
+              onTap: () async{
+                await FirebaseAuth.instance.signOut();
+                if(!mounted) return;
+                SnackbarService().showSnackBarMessage('Logged Out Successfully', context);
+              },
+              child: Icon(Icons.logout_rounded,color: primaryTextColor,size: 24,),
+              
             )
+            
           ],
         ),
         centerTitle: false,
@@ -68,6 +73,7 @@ class _HomepageState extends State<Homepage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 25,),
                 Text(
                   "WHAT'S IN YOUR\nFRIDGE?",
                   style: TextStyle(
@@ -89,10 +95,32 @@ class _HomepageState extends State<Homepage> {
                         shape: BoxShape.circle,
                         border: Border.all(color: borderColor, width: 3),
                       ),
-                      child: Icon(
-                        Icons.upload_sharp,
-                        color: borderColor,
-                        size: 28,
+                      child: InkWell(
+                        onTap: () async {
+                          try {
+                            final image =
+                            await cameraService.pickFromGallery();
+                            setState(() {
+                              if (image != null) {
+                                _imageFile = image;
+                                // uploadError = "";
+                              } else {
+                                // uploadError = "Failed to load image";
+                                snackbarService.showSnackBarMessage('Failed to load image',context);
+                              }
+                            });
+                          } catch (e) {
+                            setState(() {
+                              // uploadError = "Failed to load image";
+                              snackbarService.showSnackBarMessage('Failed to load gallery',context);
+                            });
+                          }
+                        },
+                        child: Icon(
+                          Icons.upload_sharp,
+                          color: borderColor,
+                          size: 28,
+                        ),
                       ),
                     ),
                     SizedBox(width: 18),
@@ -187,7 +215,7 @@ class _HomepageState extends State<Homepage> {
                             } catch (e) {
                               setState(() {
                                 // uploadError = "Failed to load image";
-                                snackbarService.showSnackBarMessage('Failed to load image',context);
+                                snackbarService.showSnackBarMessage('Failed to load gallery',context);
                               });
                             }
                           },
@@ -243,7 +271,7 @@ class _HomepageState extends State<Homepage> {
                             } catch (e) {
                               setState(() {
                                 // uploadError = "Failed to capture image";
-                                snackbarService.showSnackBarMessage("Failed to capture image", context);
+                                snackbarService.showSnackBarMessage("Failed to load camera", context);
                               });
                             }
                           },

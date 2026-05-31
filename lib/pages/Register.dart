@@ -34,8 +34,6 @@ class _RegisterState extends State<Register> {
         password: password.text.trim(),
       );
 
-      // await userCredential.user!.updateDisplayName(username.text.trim());
-
       if (!mounted) return;
       SnackbarService().showSnackBarMessage('Registered Successfully', context);
 
